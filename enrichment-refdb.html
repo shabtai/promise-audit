@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrichment: Reference Databases</title>
+<style>
+:root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --green: #3fb950; --red: #f85149; --yellow: #d29922; --orange: #db6d28; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+h1 { color: var(--heading); font-size: 2.5rem; margin-bottom: 0.5rem; }
+h2 { color: var(--heading); font-size: 1.8rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+h3 { color: var(--accent); font-size: 1.3rem; margin: 1.5rem 0 0.5rem; }
+p, li { margin-bottom: 0.5rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.subtitle { color: #8b949e; font-size: 1.1rem; margin-bottom: 2rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.stat { text-align: center; padding: 1.5rem; }
+.stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent); }
+.stat-label { color: #8b949e; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.badge-critical { background: #f8514922; color: var(--red); border: 1px solid #f8514944; }
+.badge-high { background: #db6d2822; color: var(--orange); border: 1px solid #db6d2844; }
+.badge-medium { background: #d2992222; color: var(--yellow); border: 1px solid #d2992244; }
+.badge-low { background: #8b949e22; color: #8b949e; border: 1px solid #8b949e44; }
+.badge-pass { background: #3fb95022; color: var(--green); border: 1px solid #3fb95044; }
+.badge-fail { background: #f8514922; color: var(--red); border: 1px solid #f8514944; }
+.badge-warn { background: #d2992222; color: var(--yellow); border: 1px solid #d2992244; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--heading); font-weight: 600; background: #1c2128; }
+tr:hover { background: #1c212844; }
+code { background: #1c2128; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85em; color: #e6edf3; }
+.nav { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.nav a { background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 500; }
+.nav a:hover { border-color: var(--accent); text-decoration: none; }
+.nav a.active { border-color: var(--accent); background: #58a6ff22; }
+.finding { border-left: 3px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+.finding-critical { border-left-color: var(--red); }
+.finding-high { border-left-color: var(--orange); }
+.finding-medium { border-left-color: var(--yellow); }
+.finding-pass { border-left-color: var(--green); }
+ul { padding-left: 1.5rem; }
+.tag { display: inline-block; margin: 0.2rem; padding: 0.1rem 0.5rem; background: #1c2128; border-radius: 3px; font-size: 0.8rem; }
+.col-meaning { max-width: 500px; font-size: 0.85rem; color: #8b949e; }
+.wide-note { font-style: italic; color: #8b949e; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Enrichment: Reference Databases</h1>
+<p class="subtitle">dbPTM, PhosphoSitePlus, modification masses and mapping tables (4 tables, 37 columns, 860K rows)</p>
+
+<nav class="nav">
+<a href="index.html">Main Report</a>
+<a href="enrichment-refdb.html" class="active">Reference DBs</a>
+<a href="enrichment-mc38.html">MC38 Data</a>
+<a href="enrichment-supplementary.html">Supplementary</a>
+</nav>
+
+
+<section>
+<h2>Dataset Overview</h2>
+<div class="card-grid">
+<div class="card stat">
+<div class="stat-number">4</div>
+<div class="stat-label">Tables</div>
+</div>
+<div class="card stat">
+<div class="stat-number">37</div>
+<div class="stat-label">Columns (100% resolved)</div>
+</div>
+<div class="card stat">
+<div class="stat-number">32</div>
+<div class="stat-label">Review Findings</div>
+</div>
+</div>
+
+<div class="card-grid">
+<div class="card stat">
+<div class="stat-number" style="color:var(--red)">4</div>
+<div class="stat-label">FAIL</div>
+</div>
+<div class="card stat">
+<div class="stat-number" style="color:var(--yellow)">21</div>
+<div class="stat-label">WARN</div>
+</div>
+<div class="card stat">
+<div class="stat-number" style="color:var(--green)">7</div>
+<div class="stat-label">PASS</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Domain</h3>
+<p><code>proteomics_ptm_bioinformatics_reference</code></p>
+</div>
+</section>
+<section>
+<h2>Table-by-Table Column Listings</h2>
+<div class="card">
+<h3>DBPTM <span class="tag">9 columns</span> <span class="tag">proteomics</span></h3>
+<p>To catalog and reference experimentally verified post-translational modifications (PTMs) of proteins, linking biochemical sites to scientific literature.</p>
+<p><strong>Grain:</strong> One row per modification event at a specific protein residue, identified by its position and supported by a specific literature reference.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>protein_name</code></td><td class="col-meaning">UniProtKB Entry Name (formerly UniProt ID), a unique mnemonic identifier for a protein in the UniProt database, forma...</td></tr>
+<tr><td><code>uniprot_id</code></td><td class="col-meaning">UniProt Knowledgebase (UniProtKB) Accession Number, a unique and stable identifier for a protein entry. It provides a...</td></tr>
+<tr><td><code>position</code></td><td class="col-meaning">The 1-based numerical index (offset) of the modified amino acid residue within the protein sequence, indicating the s...</td></tr>
+<tr><td><code>annotation</code></td><td class="col-meaning">Specific chemical name or descriptive label for the post-translational modification (PTM) occurring at the site, typi...</td></tr>
+<tr><td><code>pubmed_id</code></td><td class="col-meaning">Unique identifier(s) (PMID) for scientific literature in the PubMed database that support the specific protein modifi...</td></tr>
+<tr><td><code>source</code></td><td class="col-meaning">The originating biological database and the specific record accession or version number from which the post-translati...</td></tr>
+<tr><td><code>residue</code></td><td class="col-meaning">Single-letter IUPAC amino acid code (e.g., 'S' for Serine, 'T' for Threonine, 'Y' for Tyrosine) representing the spec...</td></tr>
+<tr><td><code>modification_type</code></td><td class="col-meaning">The standardized name or chemical category of the post-translational modification (PTM) occurring on a specific prote...</td></tr>
+<tr><td><code>sequence_window</code></td><td class="col-meaning">A fixed-length string of amino acids (sequence motif) centered on a specific modified residue (e.g., a phosphorylatio...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>PHOSPHOSITEPLUS <span class="tag">14 columns</span> <span class="tag">proteomics_research</span></h3>
+<p>This table serves as a comprehensive reference of protein post-translational modifications (PTMs), specifically phosphorylation sites, mapping them to genes, proteins, and literature evidence.</p>
+<p><strong>Grain:</strong> One row per specific post-translational modification (PTM) site. The data is keyed to a specific amino acid position on a protein sequence.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>gene_symbol</code></td><td class="col-meaning">Official alphanumeric shorthand name for a gene (e.g., HGNC for human, MGI for mouse) associated with a protein phosp...</td></tr>
+<tr><td><code>protein_name</code></td><td class="col-meaning">Standardized or common name of the protein associated with a post-translational modification site, as curated in the ...</td></tr>
+<tr><td><code>uniprot_id</code></td><td class="col-meaning">Unique accession number assigned to a protein in the UniProt Knowledgebase (UniProtKB). This identifier provides a st...</td></tr>
+<tr><td><code>chromosome</code></td><td class="col-meaning">The chromosomal location and cytogenetic band of the gene encoding the protein associated with a modification site. V...</td></tr>
+<tr><td><code>site</code></td><td class="col-meaning">Specific amino acid residue and its sequence position within a protein, concatenated with the type of post-translatio...</td></tr>
+<tr><td><code>site_id</code></td><td class="col-meaning">Unique internal database identifier for a specific protein modification site (e.g., a phosphorylation site) within th...</td></tr>
+<tr><td><code>organism</code></td><td class="col-meaning">The biological species from which the protein or sequence was derived (e.g., human, rat, mouse).</td></tr>
+<tr><td><code>molecular_weight</code></td><td class="col-meaning">The calculated molecular mass of the protein or protein isoform, expressed in kiloDaltons (kDa). This value represent...</td></tr>
+<tr><td><code>domain</code></td><td class="col-meaning">The specific structural or functional protein domain (e.g., SH2, RRM, Kinase, Sushi) where the post-translational mod...</td></tr>
+<tr><td><code>sequence_window</code></td><td class="col-meaning">A 15-character amino acid sequence (15-mer) representing the local neighborhood flanking a post-translational modific...</td></tr>
+<tr><td><code>col11</code></td><td class="col-meaning">The count of distinct experimental observations or published literature citations supporting the identification of a ...</td></tr>
+<tr><td><code>num_references</code></td><td class="col-meaning">The total number of scientific publications (literature citations) that support the identified post-translational mod...</td></tr>
+<tr><td><code>col13</code></td><td class="col-meaning">Number of scientific publications or high-throughput studies (e.g., LT_LIT, MS_LIT, or MS_CPT) providing evidence for...</td></tr>
+<tr><td><code>col14</code></td><td class="col-meaning">PubMed Identifiers (PMIDs) or internal reference identifiers for literature citations supporting the post-translation...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>MODIFICATION-MASSES__SHEET1 <span class="tag">8 columns</span> <span class="tag">proteomics</span></h3>
+<p>A reference lookup table mapping amino acid residues and chemical modifications to their respective molecular masses for use in mass spectrometry calculations.</p>
+<p><strong>Grain:</strong> One row per amino acid residue or chemical modification.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>base</code></td><td class="col-meaning">The single-letter IUPAC code representing the amino acid residue (e.g., K for Lysine, G for Glycine, R for Arginine) ...</td></tr>
+<tr><td><code>aa</code></td><td class="col-meaning">Amino acid residue identifier using single-letter codes (e.g., S for Serine, K for Lysine) often appended with parent...</td></tr>
+<tr><td><code>mass</code></td><td class="col-meaning">The monoisotopic or average molecular mass shift (in Daltons) associated with a specific chemical modification (e.g.,...</td></tr>
+<tr><td><code>type</code></td><td class="col-meaning">Classification of the entry in the mass spectrometry reference table, partitioning records into standard amino acid r...</td></tr>
+<tr><td><code>Unnamed: 4</code></td><td class="col-meaning">An empty placeholder column or spreadsheet artifact containing no data (100% null rate). This column likely results f...</td></tr>
+<tr><td><code>Unnamed: 5</code></td><td class="col-meaning">An empty placeholder column or spreadsheet artifact containing no data, likely representing an unused column between ...</td></tr>
+<tr><td><code>Unnamed: 6</code></td><td class="col-meaning">Spreadsheet calculation formula artifact representing a stray subtotal or summation of values (likely mass components...</td></tr>
+<tr><td><code>Unnamed: 7</code></td><td class="col-meaning">A spreadsheet calculation formula artifact, likely representing a manual mass delta computation performed during data...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>MODIFICATION_MAPPING__SHEET1 <span class="tag">6 columns</span> <span class="tag">proteomics_bioinformatics</span></h3>
+<p>This table serves as a reference mapping for protein modifications, reconciling mass shifts and nomenclature across different bioinformatics databases like dbPTM and PhosphoSitePlus.</p>
+<p><strong>Grain:</strong> One row per protein modification type, often specific to a target amino acid residue. [VALIDATED: actual grain key is (modification name, mass, aa)]</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>mass</code></td><td class="col-meaning">The molecular mass shift (typically monoisotopic) in Daltons (Da) associated with a specific post-translational modif...</td></tr>
+<tr><td><code>modification name</code></td><td class="col-meaning">Standardized name of a Post-Translational Modification (PTM) such as Phosphorylation or Ubiquitylation, typically use...</td></tr>
+<tr><td><code>modification name dbPTM</code></td><td class="col-meaning">The standardized name or label for a post-translational modification (PTM) as categorized in the dbPTM database (e.g....</td></tr>
+<tr><td><code>modification name PhosphoSitePluse</code></td><td class="col-meaning">The specific short-hand code or abbreviation used by the PhosphoSitePlus (PSP) database to represent post-translation...</td></tr>
+<tr><td><code>short name</code></td><td class="col-meaning">Abbreviated notation or shorthand code used in proteomics to identify and map post-translational modifications (PTMs)...</td></tr>
+<tr><td><code>aa</code></td><td class="col-meaning">One-letter IUPAC amino acid code representing the specific residue where a post-translational modification (PTM) occu...</td></tr>
+</table>
+</div>
+</section>
+<section>
+<h2>Review Findings Summary</h2>
+<div class="card"><h3>Findings by Category</h3><table><tr><th>Category</th><th>Count</th></tr>
+<tr><td><code>cluster_validation</code></td><td>10</td></tr>
+<tr><td><code>unit_consistency</code></td><td>7</td></tr>
+<tr><td><code>domain_coherence</code></td><td>4</td></tr>
+<tr><td><code>grain_consistency</code></td><td>3</td></tr>
+<tr><td><code>fk_integrity</code></td><td>2</td></tr>
+<tr><td><code>memory_override</code></td><td>2</td></tr>
+<tr><td><code>entropy_audit</code></td><td>1</td></tr>
+<tr><td><code>narrative_alignment</code></td><td>1</td></tr>
+<tr><td><code>role_coherence</code></td><td>1</td></tr>
+<tr><td><code>cross_table_consistency</code></td><td>1</td></tr>
+</table></div>
+<div class="card"><h3>FAIL Findings</h3>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>DBPTM/fk/residue-&gt;MODIFICATION-MASSES__SHEET1.aa</code></strong></p>
+<p>FK target MODIFICATION-MASSES__SHEET1.aa is not unique (cardinality_ratio=0.9342). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>DBPTM/fk/modification_type-&gt;MODIFICATION_MAPPING__SHEET1.modification name</code></strong></p>
+<p>FK target MODIFICATION_MAPPING__SHEET1.modification name is not unique (cardinality_ratio=0.5405). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">cluster_validation</span> <strong><code>MODIFICATION-MASSES__SHEET1/cluster_validation/unnamed_artifacts</code></strong></p>
+<p>Cluster contains 'Unnamed: 6', which is a spreadsheet calculation formula artifact (stray data) rather than a meaningful column.</p>
+<p><em>Suggestion:</em> Drop the 'Unnamed: 6' column.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">narrative_alignment</span> <strong><code>schema/narrative_alignment</code></strong></p>
+<p>The schema narrative describes a patient journey involving clinical specimen collection (biopsy/plasma) and mass spectrometry acquisition. However, the tables (DBPTM, PHOSPHOSITEPLUS, MODIFICATION_MAPPING) contain purely literature-curated bioinformatics reference data for proteins and PTMs. There are no patient records, clinical specimens, or experimental acquisition data in this schema.</p>
+<p><em>Suggestion:</em> Rewrite the schema narrative to accurately reflect that this is a bioinformatics reference library for protein modifications, not an observational clinical or experimental dataset.</p>
+</div>
+</div>
+</section>
+<section><h2>Data Quality Warnings</h2><div class="card">
+<div class="finding finding-medium"><p>**LOD-censored column** (`PHOSPHOSITEPLUS.col11`): 70.9% of values pile up at 1.0 (column minimum). Exclude or substitute 1.0/2 before aggregation. Mean excluding LOD: 7.4170.</p></div>
+<div class="finding finding-medium"><p>**LOD-censored column** (`PHOSPHOSITEPLUS.num_references`): 62.5% of values pile up at 1.0 (column minimum). Exclude or substitute 1.0/2 before aggregation. Mean excluding LOD: 5.5000.</p></div>
+<div class="finding finding-medium"><p>**Cumulative/running-total columns** (`DBPTM.position`, `DBPTM.pubmed_id`, `PHOSPHOSITEPLUS.num_references`): These columns are perfectly monotonic within each entity but reset between entities, indicating they contain cumulative totals rather than incremental values. **Do not sum directly** — use `diff()` within each entity group to get incremental values, or take the last value per entity for the final total.</p></div>
+<div class="finding finding-medium"><p>**Rollup contamination** (`PHOSPHOSITEPLUS.gene_symbol`): This table mixes detail rows and category summary rows. Summing `gene_symbol` will double-count events. Filter: WHERE exclude rows with marker patterns in gene_symbol, protein_name, uniprot_id before aggregation. The 529 summary rows contain aggregated values.</p></div>
+<div class="finding finding-medium"><p>**lod_limit_pile_up**: The column PHOSPHOSITEPLUS.num_references has a massive concentration of identical values at a single point (often at the minimum or maximum of the observed range). This often indicates a 'Limit of Detection' where values below or above a certain threshold are clipped to that threshold. Treat the spiked value as censored data rather than an exact measurement. Use survival analysis or Tobit regression models, and verify the instrument's detection limits.</p></div>
+<div class="finding finding-medium"><p>**mixed_clinical_coding_systems**: Found 41904 values in column 'DBPTM.pubmed_id' that are strictly numeric (6-18 digits long). This format corresponds to SNOMED CT identifiers. If this column is also intended to store alphanumeric codes like ICD-10 (e.g., 'E11.9'), the mixture of systems will cause incomplete analysis and reporting, as standard queries for one system will fail to capture records stored in the other. Standardize the coding system in 'DBPTM.pubmed_id'. Use a mapping tool (like </p></div>
+<div class="finding finding-critical"><p>**Factual data error** (`MODIFICATION-MASSES__SHEET1/fact_error/aa`, row &quot;K(GGIC)&quot;): Value &quot;K(GGIC)&quot; is incorrect; should be &quot;K(GGIY)&quot;. [HIGH] The human FAT10 (UBD) ubiquitin-like modifier has the C-terminal sequence CYIGG. When conjugated to a target lysine, the sequence of the tryptic remnant read outwards from the C-terminus is G-G-I-Y-C. Therefore, the intermediate sequence string should be GGIY, not GGIC.</p></div>
+<div class="finding finding-critical"><p>**Factual data error** (`MODIFICATION-MASSES__SHEET1/fact_error/mass`, row &quot;K(GGIC)&quot;): Value &quot;=330.1362+C11&quot; is incorrect; should be &quot;=390.1903+C11&quot;. [HIGH] Because the correct FAT10 intermediate sequence is GGIY instead of GGIC, its mass shift must incorporate Tyrosine (+163.0633) rather than Cysteine (+103.0092). The mass of the GGIY modification is 390.1903.</p></div>
+<div class="finding finding-critical"><p>**Factual data error** (`MODIFICATION-MASSES__SHEET1/fact_error/aa`, row &quot;K(GGICY)&quot;): Value &quot;K(GGICY)&quot; is incorrect; should be &quot;K(GGIYC)&quot;. [HIGH] The human FAT10 modifier C-terminus is CYIGG. Read backwards from the C-terminus (outwards from the modified lysine), the sequence is correctly GGIYC, not GGICY.</p></div>
+<div class="finding finding-critical"><p>**Factual data error** (`MODIFICATION_MAPPING__SHEET1/fact_error/mass`, row &quot;Dimethyl&quot;): Value &quot;28.0532&quot; is incorrect; should be &quot;28.0313&quot;. [HIGH] The accurate mass shift for dimethylation (addition of C2H4) is 28.0313 Da. The value 28.0532 is incorrect and likely a typographical error, especially since the correct mass (28.0312) is listed in the preceding row for the same modification.</p></div>
+<div class="finding finding-critical"><p>**Factual data error** (`MODIFICATION_MAPPING__SHEET1/fact_error/mass`, row &quot;ITRAQ&quot;): Value &quot;145.1&quot; is incorrect; should be &quot;144.102&quot;. [HIGH] The exact mass shift for the iTRAQ 4-plex isobaric tag on a peptide is 144.102 Da. A mass of 145.1 Da is off by 1 Da and is factually incorrect for iTRAQ labeling.</p></div>
+</div></section>
+
+<footer style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--border); color:#8b949e; font-size:0.85rem;">
+<p>Generated by <a href="https://github.com/anthropics/claude-code">Claude Code</a> using <a href="https://github.com/rantene/semantic-enricher">semantic-enricher</a> | Audit date: 2026-03-25</p>
+</footer>
+
+</div>
+</body>
+</html>

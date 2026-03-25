@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrichment: MC38 Immunopeptidomics</title>
+<style>
+:root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --green: #3fb950; --red: #f85149; --yellow: #d29922; --orange: #db6d28; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+h1 { color: var(--heading); font-size: 2.5rem; margin-bottom: 0.5rem; }
+h2 { color: var(--heading); font-size: 1.8rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+h3 { color: var(--accent); font-size: 1.3rem; margin: 1.5rem 0 0.5rem; }
+p, li { margin-bottom: 0.5rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.subtitle { color: #8b949e; font-size: 1.1rem; margin-bottom: 2rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.stat { text-align: center; padding: 1.5rem; }
+.stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent); }
+.stat-label { color: #8b949e; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.badge-critical { background: #f8514922; color: var(--red); border: 1px solid #f8514944; }
+.badge-high { background: #db6d2822; color: var(--orange); border: 1px solid #db6d2844; }
+.badge-medium { background: #d2992222; color: var(--yellow); border: 1px solid #d2992244; }
+.badge-low { background: #8b949e22; color: #8b949e; border: 1px solid #8b949e44; }
+.badge-pass { background: #3fb95022; color: var(--green); border: 1px solid #3fb95044; }
+.badge-fail { background: #f8514922; color: var(--red); border: 1px solid #f8514944; }
+.badge-warn { background: #d2992222; color: var(--yellow); border: 1px solid #d2992244; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--heading); font-weight: 600; background: #1c2128; }
+tr:hover { background: #1c212844; }
+code { background: #1c2128; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85em; color: #e6edf3; }
+.nav { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.nav a { background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 500; }
+.nav a:hover { border-color: var(--accent); text-decoration: none; }
+.nav a.active { border-color: var(--accent); background: #58a6ff22; }
+.finding { border-left: 3px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+.finding-critical { border-left-color: var(--red); }
+.finding-high { border-left-color: var(--orange); }
+.finding-medium { border-left-color: var(--yellow); }
+.finding-pass { border-left-color: var(--green); }
+ul { padding-left: 1.5rem; }
+.tag { display: inline-block; margin: 0.2rem; padding: 0.1rem 0.5rem; background: #1c2128; border-radius: 3px; font-size: 0.8rem; }
+.col-meaning { max-width: 500px; font-size: 0.85rem; color: #8b949e; }
+.wide-note { font-style: italic; color: #8b949e; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Enrichment: MC38 Immunopeptidomics</h1>
+<p class="subtitle">MaxQuant output for MC38 murine colon adenocarcinoma model (7 tables, 461 columns, 27K rows)</p>
+
+<nav class="nav">
+<a href="index.html">Main Report</a>
+<a href="enrichment-refdb.html">Reference DBs</a>
+<a href="enrichment-mc38.html" class="active">MC38 Data</a>
+<a href="enrichment-supplementary.html">Supplementary</a>
+</nav>
+
+
+<section>
+<h2>Dataset Overview</h2>
+<div class="card-grid">
+<div class="card stat">
+<div class="stat-number">7</div>
+<div class="stat-label">Tables</div>
+</div>
+<div class="card stat">
+<div class="stat-number">461</div>
+<div class="stat-label">Columns (100% resolved)</div>
+</div>
+<div class="card stat">
+<div class="stat-number">689</div>
+<div class="stat-label">Review Findings</div>
+</div>
+</div>
+
+<div class="card-grid">
+<div class="card stat">
+<div class="stat-number" style="color:var(--red)">25</div>
+<div class="stat-label">FAIL</div>
+</div>
+<div class="card stat">
+<div class="stat-number" style="color:var(--yellow)">137</div>
+<div class="stat-label">WARN</div>
+</div>
+<div class="card stat">
+<div class="stat-number" style="color:var(--green)">527</div>
+<div class="stat-label">PASS</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Domain</h3>
+<p><code>proteomics_mass_spectrometry</code></p>
+</div>
+</section>
+<section>
+<h2>Table-by-Table Column Listings</h2>
+<div class="card">
+<h3>EVIDENCE <span class="tag">62 columns</span> <span class="tag">proteomics</span></h3>
+<p>To provide high-resolution evidence for the presence and quantity of specific peptides and their parent proteins in a biological sample.</p>
+<p><strong>Grain:</strong> One row per peptide identification event ('evidence'). Each row maps a specific mass-spectrometry feature to a peptide sequence and its corresponding protein/gene group across different experimenta...</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Sequence</code></td><td class="col-meaning">The primary amino acid sequence of a peptide identified by mass spectrometry, represented using standard one-letter a...</td></tr>
+<tr><td><code>Length</code></td><td class="col-meaning">The number of amino acids (residues) in the identified peptide sequence. This is a standard technical metadata column...</td></tr>
+<tr><td><code>Modifications</code></td><td class="col-meaning">A categorical summary of the post-translational or chemical modifications (PTMs) identified on the peptide sequence. ...</td></tr>
+<tr><td><code>Modified sequence</code></td><td class="col-meaning">Peptide amino acid sequence including post-translational modifications (PTMs) denoted in parentheses (e.g., '(ox)' fo...</td></tr>
+<tr><td><code>Oxidation (M) Probabilities</code></td><td class="col-meaning">Site-specific localization probabilities (0-1) for Methionine oxidation, represented as a peptide sequence string whe...</td></tr>
+<tr><td><code>Oxidation (M) Score Diffs</code></td><td class="col-meaning">Andromeda score differences for Methionine oxidation (M) localization, represented as the peptide sequence with the s...</td></tr>
+<tr><td><code>Acetyl (Protein N-term)</code></td><td class="col-meaning">The number of N-terminal acetyl groups (post-translational modifications) detected on the peptide. In this mass spect...</td></tr>
+<tr><td><code>Oxidation (M)</code></td><td class="col-meaning">The number of Methionine (M) residues in the peptide sequence that have undergone oxidation (0, 1, 2, etc.)</td></tr>
+<tr><td><code>Missed cleavages</code></td><td class="col-meaning">The number of internal enzymatic cleavage sites (e.g., residues like Lysine or Arginine in tryptic digests) that rema...</td></tr>
+<tr><td><code>Proteins</code></td><td class="col-meaning">UniProt protein accession identifiers (e.g., Q61286) associated with the detected peptide evidence. This column provi...</td></tr>
+<tr><td><code>Leading proteins</code></td><td class="col-meaning">Primary UniProt accession numbers (identifiers) for the protein(s) associated with a detected peptide sequence in a m...</td></tr>
+<tr><td><code>Leading razor protein</code></td><td class="col-meaning">Primary UniProt accession number assigned to a protein group based on the 'razor' parsimony principle in mass spectro...</td></tr>
+<tr><td><code>Gene names</code></td><td class="col-meaning">Official gene symbols (MGI nomenclature for this Mus musculus dataset) associated with the proteins identified in the...</td></tr>
+<tr><td><code>Protein names</code></td><td class="col-meaning">Full descriptive names of proteins identified via mass spectrometry (proteomics). These values typically correspond t...</td></tr>
+<tr><td><code>Type</code></td><td class="col-meaning">The method of peptide identification used by the MaxQuant search engine, distinguishing between direct fragmentation ...</td></tr>
+<tr><td><code>Raw file</code></td><td class="col-meaning">The name of the original mass spectrometry raw data file (e.g., .raw or .mzML) from which the peptide identification ...</td></tr>
+<tr><td><code>Experiment</code></td><td class="col-meaning">A user-defined categorical label in MaxQuant proteomics software that groups mass spectrometry raw files into experim...</td></tr>
+<tr><td><code>MS/MS m/z</code></td><td class="col-meaning">The observed mass-to-charge ratio (m/z) of the precursor ion detected during a tandem mass spectrometry (MS/MS) exper...</td></tr>
+<tr><td><code>Charge</code></td><td class="col-meaning">The integer electric charge state (z) of the precursor peptide ion detected in the mass spectrometer. In proteomics e...</td></tr>
+<tr><td><code>m/z</code></td><td class="col-meaning">The mass-to-charge ratio of a detected ion in mass spectrometry, calculated as the ion's atomic mass divided by its c...</td></tr>
+<tr><td><code>Mass</code></td><td class="col-meaning">The monoisotopic molecular mass (in Daltons) of an identified peptide sequence or protein fragment, likely derived fr...</td></tr>
+<tr><td><code>Resolution</code></td><td class="col-meaning">The resolving power of the mass spectrometer at the specific mass-to-charge (m/z) value of the identified peptide evi...</td></tr>
+<tr><td><code>Uncalibrated - Calibrated m/z [ppm]</code></td><td class="col-meaning">The mass measurement error or deviation, calculated as the difference between the raw (uncalibrated) and corrected (c...</td></tr>
+<tr><td><code>Uncalibrated - Calibrated m/z [Da]</code></td><td class="col-meaning">Mass measurement error (residual) representing the difference between the raw instrument mass-to-charge (m/z) value a...</td></tr>
+<tr><td><code>Mass error [ppm]</code></td><td class="col-meaning">The relative difference between the experimentally measured mass-to-charge ratio (m/z) and the calculated theoretical...</td></tr>
+<tr><td><code>Mass error [Da]</code></td><td class="col-meaning">The difference between the measured mass of a peptide/ion and its theoretical mass, expressed in Daltons (Da). Positi...</td></tr>
+<tr><td><code>Uncalibrated mass error [ppm]</code></td><td class="col-meaning">The difference between the measured mass-to-charge ratio and the theoretical mass of a peptide prior to software-base...</td></tr>
+<tr><td><code>Uncalibrated mass error [Da]</code></td><td class="col-meaning">The difference between the measured mass of a peptide/fragment and its theoretical calculated mass before any computa...</td></tr>
+<tr><td><code>Max intensity m/z 0</code></td><td class="col-meaning">The mass-to-charge ratio (m/z) corresponding to the highest signal intensity recorded for the monoisotopic (index 0) ...</td></tr>
+<tr><td><code>Retention time</code></td><td class="col-meaning">The chromatographic elution time (RT) of a peptide or molecular feature, representing the time (usually in minutes) a...</td></tr>
+<tr><td><code>Retention length</code></td><td class="col-meaning">The duration (width) of the chromatographic elution peak for a detected peptide feature in a liquid chromatography-ma...</td></tr>
+<tr><td><code>Calibrated retention time</code></td><td class="col-meaning">The normalized or adjusted time (usually in minutes) at which a specific peptide elutes from the chromatography colum...</td></tr>
+<tr><td><code>Calibrated retention time start</code></td><td class="col-meaning">The starting time (typically in minutes) of the elution peak for a detected peptide feature in a mass spectrometry ru...</td></tr>
+<tr><td><code>Calibrated retention time finish</code></td><td class="col-meaning">The end timestamp (typically in minutes) of the detected chromatographic peak for a specific peptide, adjusted/aligne...</td></tr>
+<tr><td><code>Retention time calibration</code></td><td class="col-meaning">The numeric correction or residual offset (in minutes) applied to the raw retention time to align it with a reference...</td></tr>
+<tr><td><code>Match time difference</code></td><td class="col-meaning">The numerical difference (in minutes) between the observed retention time of a peptide feature and its predicted or a...</td></tr>
+<tr><td><code>Match m/z difference</code></td><td class="col-meaning">The difference (error) between the observed mass-to-charge ratio (m/z) and the theoretical m/z calculated for a pepti...</td></tr>
+<tr><td><code>Match q-value</code></td><td class="col-meaning">The False Discovery Rate (FDR) adjusted p-value (q-value) for a specific Peptide-Spectrum Match (PSM). It represents ...</td></tr>
+<tr><td><code>Match score</code></td><td class="col-meaning">The Andromeda search engine score for a peptide identification that was transferred from another mass spectrometry ru...</td></tr>
+<tr><td><code>Number of data points</code></td><td class="col-meaning">The count of individual mass spectrometry scans or data points across the elution profile associated with a specific ...</td></tr>
+<tr><td><code>Number of scans</code></td><td class="col-meaning">Total number of mass spectrometry (MS/MS) spectra or scans assigned to a specific peptide evidence entry.</td></tr>
+<tr><td><code>Number of isotopic peaks</code></td><td class="col-meaning">The number of individual isotopic peaks (e.g., M, M+1, M+2...) belonging to a peptide's precursor isotopic envelope t...</td></tr>
+<tr><td><code>PIF</code></td><td class="col-meaning">Parent Ion Fraction (PIF): A mass spectrometry quality metric representing the proportion of total ion intensity in t...</td></tr>
+<tr><td><code>Fraction of total spectrum</code></td><td class="col-meaning">In mass spectrometry proteomics, the proportion of total ion intensity in a spectrum (typically the MS1 precursor sca...</td></tr>
+<tr><td><code>Base peak fraction</code></td><td class="col-meaning">In mass spectrometry proteomics (MaxQuant output), the ratio of the intensity of the identified precursor ion to the ...</td></tr>
+<tr><td><code>PEP</code></td><td class="col-meaning">Posterior Error Probability (PEP) for a peptide-spectrum match, representing the probability that the identification ...</td></tr>
+<tr><td><code>MS/MS count</code></td><td class="col-meaning">The number of tandem mass spectrometry (MS/MS) spectra (scans) that were successfully matched to a specific peptide f...</td></tr>
+<tr><td><code>MS/MS scan number</code></td><td class="col-meaning">The unique integer identifier (index) for the tandem mass spectrometry (MS/MS) scan event in the raw data file that r...</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The Andromeda score for a peptide-spectrum match (PSM), representing the confidence of the identification based on th...</td></tr>
+<tr><td><code>Delta score</code></td><td class="col-meaning">The difference between the score of the best peptide-spectrum match (PSM) and the second-best match, typically calcul...</td></tr>
+<tr><td><code>Combinatorics</code></td><td class="col-meaning">The number of theoretical combinations of modification site localizations possible for the identified peptide sequenc...</td></tr>
+<tr><td><code>Intensity</code></td><td class="col-meaning">Summed signal abundance (peak area) for a specific peptide or ion detected via mass spectrometry in a proteomics expe...</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Indicator for whether the peptide identification is a 'decoy' hit from a reversed sequence database, used for False D...</td></tr>
+<tr><td><code>Potential contaminant</code></td><td class="col-meaning">Indicator that the identified peptide or protein is a known common laboratory contaminant, such as keratin or trypsin...</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">Unique primary key identifier for a peptide evidence record in a proteomics/mass-spectrometry dataset (standard MaxQu...</td></tr>
+<tr><td><code>Protein group IDs</code></td><td class="col-meaning">Internal numeric identifiers linking a peptide evidence record to one or more protein groups; frequently generated by...</td></tr>
+<tr><td><code>Peptide ID</code></td><td class="col-meaning">Internal numerical identifier for a specific peptide sequence, functioning as a foreign key to link evidence/feature ...</td></tr>
+<tr><td><code>Mod. peptide ID</code></td><td class="col-meaning">A unique numeric identifier for a specific modified peptide sequence, used as a foreign key to link mass spectrometry...</td></tr>
+<tr><td><code>MS/MS IDs</code></td><td class="col-meaning">Semicolon-delimited list of internal identifiers (row indices) referencing the 'msms.txt' table, representing the spe...</td></tr>
+<tr><td><code>Best MS/MS</code></td><td class="col-meaning">The internal unique identifier (ID) or index of the highest-scoring tandem mass spectrometry (MS/MS) spectrum associa...</td></tr>
+<tr><td><code>AIF MS/MS IDs</code></td><td class="col-meaning">Semicolon-delimited list of internal identifiers (row indices) referencing the 'msms.txt' table for tandem mass spect...</td></tr>
+<tr><td><code>Oxidation (M) site IDs</code></td><td class="col-meaning">Unique identifiers or indices for methionine oxidation sites, linking this peptide/protein evidence to a site-specifi...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>MODIFICATIONSPECIFICPEPTIDES <span class="tag">50 columns</span> <span class="tag">proteomics_research</span></h3>
+<p>This table tracks identified peptides and their associated post-translational modifications (PTMs), providing quantification (Intensity) and confidence metrics across multiple mass spectrometry experiments.</p>
+<p><strong>Grain:</strong> One row per modification-specific peptide identification. The data has a strong across-sample comparative dimension, with intensity and identification types tracked across six distinct experimental...</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Sequence</code></td><td class="col-meaning">The primary amino acid sequence (1-letter codes) of a peptide identified in a proteomics/mass-spectrometry experiment.</td></tr>
+<tr><td><code>Modifications</code></td><td class="col-meaning">The specific set of post-translational modifications (PTMs) identified on the peptide sequence, represented as a desc...</td></tr>
+<tr><td><code>Mass</code></td><td class="col-meaning">The calculated monoisotopic molecular mass (in Daltons) of the identified peptide sequence, including the additional ...</td></tr>
+<tr><td><code>Mass Fractional Part</code></td><td class="col-meaning">The decimal component (fractional part) of the peptide's monoisotopic mass, often referred to as the mass defect. Cal...</td></tr>
+<tr><td><code>Protein Groups</code></td><td class="col-meaning">Numeric identifier or index linking the specific peptide to a protein group (a cluster of proteins that share this pe...</td></tr>
+<tr><td><code>Proteins</code></td><td class="col-meaning">UniProt protein accession numbers (e.g., P70207, Q9QXZ0) identifying the protein(s) that contain the specific peptide...</td></tr>
+<tr><td><code>Gene Names</code></td><td class="col-meaning">Official gene symbols (MGI nomenclature for Mus musculus) associated with the protein(s) from which the identified pe...</td></tr>
+<tr><td><code>Protein Names</code></td><td class="col-meaning">Full descriptive names of the proteins associated with the detected peptide sequence, typically sourced from UniProt ...</td></tr>
+<tr><td><code>Unique (Groups)</code></td><td class="col-meaning">Indicates whether the modification-specific peptide sequence is unique to a single protein group (yes/no). In MaxQuan...</td></tr>
+<tr><td><code>Unique (Proteins)</code></td><td class="col-meaning">Indicates whether the identified peptide sequence maps to a single unique protein (yes/no). 'yes' signifies a proteot...</td></tr>
+<tr><td><code>Acetyl (Protein N-term)</code></td><td class="col-meaning">A discrete count of the number of 'Acetyl (Protein N-term)' modifications identified on the specific peptide sequence...</td></tr>
+<tr><td><code>Oxidation (M)</code></td><td class="col-meaning">The number of Methionine (M) residues in the peptide sequence that have undergone oxidation. In mass spectrometry-bas...</td></tr>
+<tr><td><code>Missed cleavages</code></td><td class="col-meaning">The number of internal enzymatic cleavage sites (typically Trypsin recognition sites such as Lysine or Arginine) that...</td></tr>
+<tr><td><code>Identification type 1195_MC38_24-14-8_1</code> ... <code>Experiment 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>12 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Retention time</code></td><td class="col-meaning">The elution time of a modification-specific peptide during liquid chromatography-mass spectrometry (LC-MS/MS), typica...</td></tr>
+<tr><td><code>Calibrated retention time</code></td><td class="col-meaning">The normalized or aligned elution time of a modification-specific peptide in liquid chromatography-mass spectrometry ...</td></tr>
+<tr><td><code>Charges</code></td><td class="col-meaning">The integer electric charge states (z) of the peptide precursor ions detected in the mass spectrometer for a specific...</td></tr>
+<tr><td><code>PEP</code></td><td class="col-meaning">The Posterior Error Probability (PEP) for the modification-specific peptide identification. It represents the statist...</td></tr>
+<tr><td><code>MS/MS scan number</code></td><td class="col-meaning">The unique integer index of the tandem mass spectrometry (MS/MS) acquisition event in the raw data file that identifi...</td></tr>
+<tr><td><code>Raw file</code></td><td class="col-meaning">The name of the original mass spectrometry data file (e.g., .raw or .mzML format) from which the peptide identificati...</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The peptide identification quality score (Andromeda score), representing a probability-based confidence metric for th...</td></tr>
+<tr><td><code>Delta score</code></td><td class="col-meaning">The difference between the top-ranked search engine score (typically the Andromeda score) and the second-highest scor...</td></tr>
+<tr><td><code>Intensity</code></td><td class="col-meaning">The total mass spectrometry MS1 signal intensity (summed peak area) for a specific peptide sequence with its particul...</td></tr>
+<tr><td><code>Intensity 1195_MC38_24-14-8_1</code> ... <code>Intensity 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>6 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Indicates if the peptide identification is a 'decoy' match from a reversed sequence database (+ = decoy, null = targe...</td></tr>
+<tr><td><code>Potential contaminant</code></td><td class="col-meaning">Indicator flag identifying peptides suspected to be experimental contaminants (e.g., human keratin from skin/hair, tr...</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">Surrogate primary key for the modification-specific peptides table, uniquely identifying each peptide sequence and it...</td></tr>
+<tr><td><code>Protein group IDs</code></td><td class="col-meaning">Internal integer identifiers linking a specific modified peptide to one or more protein groups (typically from MaxQua...</td></tr>
+<tr><td><code>Peptide ID</code></td><td class="col-meaning">A unique numeric identifier for a specific peptide sequence or entry within a proteomics analysis run (likely from Ma...</td></tr>
+<tr><td><code>Evidence IDs</code></td><td class="col-meaning">Semicolon-delimited list of foreign keys referencing the 'evidence' table (typically from MaxQuant proteomics softwar...</td></tr>
+<tr><td><code>MS/MS IDs</code></td><td class="col-meaning">Semicolon-separated list of unique identifiers for the MS/MS (tandem mass spectrometry) spectra or scans that provide...</td></tr>
+<tr><td><code>Best MS/MS</code></td><td class="col-meaning">The unique identifier or scan index of the highest-scoring MS/MS (tandem mass spectrometry) spectrum that matches thi...</td></tr>
+<tr><td><code>Oxidation (M) site IDs</code></td><td class="col-meaning">Semicolon-delimited list of unique identifiers linking the peptide to specific entries in the 'Oxidation (M) Sites' t...</td></tr>
+<tr><td><code>MS/MS Count</code></td><td class="col-meaning">The total number of tandem mass spectrometry (MS/MS) spectra (scans) that were successfully matched to the specific m...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>MSMS <span class="tag">61 columns</span> <span class="tag">proteomics_research</span></h3>
+<p>Tracks the identification and scoring of peptides and their parent proteins from tandem mass spectrometry (MS/MS) scan data.</p>
+<p><strong>Grain:</strong> One row per MS/MS scan event (PSM). Includes a temporal dimension via 'Retention time' and spectral dimensions via 'm/z' and 'Mass'.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Raw file</code></td><td class="col-meaning">The unique identifier for the original mass spectrometry raw data file (typically excluding the file extension) from ...</td></tr>
+<tr><td><code>Scan number</code></td><td class="col-meaning">The unique identifier for a specific mass spectrometry spectrum (scan) within a raw data file, typically used in prot...</td></tr>
+<tr><td><code>Scan index</code></td><td class="col-meaning">The unique 0-based or sequence-based pointer identifying a specific mass spectrometry scan within a raw data file, ty...</td></tr>
+<tr><td><code>Sequence</code></td><td class="col-meaning">The raw amino acid sequence of a peptide identified via mass spectrometry, represented using standard one-letter code...</td></tr>
+<tr><td><code>Length</code></td><td class="col-meaning">The number of amino acid residues in the identified peptide sequence (e.g., 8, 9, 12, 15) as determined by tandem mas...</td></tr>
+<tr><td><code>Missed cleavages</code></td><td class="col-meaning">The number of internal enzymatic cleavage sites (e.g., Lysine or Arginine for Trypsin) within a peptide sequence that...</td></tr>
+<tr><td><code>Modifications</code></td><td class="col-meaning">Categorical label identifying the specific post-translational or chemical modifications (PTMs) detected on the peptid...</td></tr>
+<tr><td><code>Modified sequence</code></td><td class="col-meaning">The amino acid sequence of a peptide identified via mass spectrometry, including notations for post-translational mod...</td></tr>
+<tr><td><code>Oxidation (M) Probabilities</code></td><td class="col-meaning">Site-specific localization probabilities for Methionine oxidation within a peptide sequence, typically formatted as t...</td></tr>
+<tr><td><code>Oxidation (M) Score Diffs</code></td><td class="col-meaning">Site-specific localization score differences for Methionine oxidation. Each value represents the difference in search...</td></tr>
+<tr><td><code>Acetyl (Protein N-term)</code></td><td class="col-meaning">The number of Acetyl (Protein N-term) modifications detected on the peptide sequence for a specific MS/MS scan. In th...</td></tr>
+<tr><td><code>Oxidation (M)</code></td><td class="col-meaning">The number of Methionine (M) residues in the identified peptide sequence that have undergone oxidation for a specific...</td></tr>
+<tr><td><code>Proteins</code></td><td class="col-meaning">UniProt Knowledgebase (UniProtKB) accession numbers (e.g., 'Q62465') for the protein(s) containing the peptide sequen...</td></tr>
+<tr><td><code>Gene Names</code></td><td class="col-meaning">Official gene symbols (e.g., 'Hnrnpa1', 'Cat') associated with the proteins identified in the MS/MS scan event. These...</td></tr>
+<tr><td><code>Protein Names</code></td><td class="col-meaning">Full descriptive names of the proteins identified in the mass spectrometry (MS/MS) scan, following UniProt or NCBI no...</td></tr>
+<tr><td><code>Charge</code></td><td class="col-meaning">The ionization charge state (z) of the precursor peptide ion identified in the mass spectrometry scan. This integer v...</td></tr>
+<tr><td><code>Fragmentation</code></td><td class="col-meaning">The physical method used to fragment precursor ions in a mass spectrometer (e.g., HCD: Higher-energy Collisional Diss...</td></tr>
+<tr><td><code>Mass analyzer</code></td><td class="col-meaning">The specific type of mass spectrometer component (analyzer) used to detect ions, such as FTMS (Fourier Transform Mass...</td></tr>
+<tr><td><code>Type</code></td><td class="col-meaning">The categorical classification of the MS/MS scan acquisition or identification type within MaxQuant proteomics softwa...</td></tr>
+<tr><td><code>Scan event number</code></td><td class="col-meaning">The sequential index of the MS/MS scan within a single instrument duty cycle. In Data-Dependent Acquisition (DDA), th...</td></tr>
+<tr><td><code>Isotope index</code></td><td class="col-meaning">The isotope peak index of the precursor ion selected for fragmentation in the MS/MS scan. In proteomics software like...</td></tr>
+<tr><td><code>m/z</code></td><td class="col-meaning">Mass-to-charge ratio of an ion detected during a mass spectrometry (MS/MS) scan, representing the mass of the particl...</td></tr>
+<tr><td><code>Mass</code></td><td class="col-meaning">Theoretical or measured monoisotopic mass of a peptide or analyte in Daltons (Da) or atomic mass units (amu), identif...</td></tr>
+<tr><td><code>Mass error [ppm]</code></td><td class="col-meaning">The relative difference between the observed mass-to-charge (m/z) ratio and the theoretical calculated mass of the id...</td></tr>
+<tr><td><code>Mass error [Da]</code></td><td class="col-meaning">The absolute difference between the measured mass and the theoretical (calculated) mass of a peptide or fragment ion,...</td></tr>
+<tr><td><code>Simple mass error [ppm]</code></td><td class="col-meaning">The relative difference between the observed mass-to-charge ratio (m/z) and the theoretical m/z of a peptide or molec...</td></tr>
+<tr><td><code>Retention time</code></td><td class="col-meaning">The time at which a specific analyte (e.g., peptide or molecule) elutes from the chromatography column and is detecte...</td></tr>
+<tr><td><code>PEP</code></td><td class="col-meaning">Posterior Error Probability (PEP) for a peptide-spectrum match (PSM), representing the statistical probability that t...</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The primary search engine score (Andromeda score) representing the confidence of a peptide-spectrum match (PSM) for a...</td></tr>
+<tr><td><code>Delta score</code></td><td class="col-meaning">The difference between the highest search engine score (e.g., Andromeda score) and the second-highest score for a pep...</td></tr>
+<tr><td><code>Score diff</code></td><td class="col-meaning">The difference between the search engine score (e.g., Andromeda score) of the best-scoring modification site localiza...</td></tr>
+<tr><td><code>Localization prob</code></td><td class="col-meaning">Statistical probability (range 0.0-1.0) that a post-translational modification (PTM) is correctly localized to a spec...</td></tr>
+<tr><td><code>Combinatorics</code></td><td class="col-meaning">The number of theoretical modification site permutations (combinations) for the identified peptide sequence in a tand...</td></tr>
+<tr><td><code>PIF</code></td><td class="col-meaning">Precursor Intensity Fraction (PIF), a quality metric used in MaxQuant proteomics to estimate the purity of the precur...</td></tr>
+<tr><td><code>Fraction of total spectrum</code></td><td class="col-meaning">In MaxQuant proteomics analysis, this column represents the fraction of the total MS/MS spectrum intensity (Total Ion...</td></tr>
+<tr><td><code>Base peak fraction</code></td><td class="col-meaning">A proteomics quality metric representing the fraction of the MS/MS base peak intensity (the most intense peak in the ...</td></tr>
+<tr><td><code>Precursor Full ScanNumber</code></td><td class="col-meaning">The unique identifier (scan number) of the precursor MS1 'full' scan from which the ion was selected for tandem mass ...</td></tr>
+<tr><td><code>Precursor Intensity</code></td><td class="col-meaning">The signal intensity (abundance) of the precursor ion measured in the MS1 survey scan prior to its selection for frag...</td></tr>
+<tr><td><code>Precursor Apex Fraction</code></td><td class="col-meaning">The index of the experimental fraction (from offline liquid chromatography or other separation techniques) in which t...</td></tr>
+<tr><td><code>Precursor Apex Offset</code></td><td class="col-meaning">The difference (offset) between the scan number where the MS/MS fragmentation occurred and the scan number where the ...</td></tr>
+<tr><td><code>Precursor Apex Offset Time</code></td><td class="col-meaning">The time difference between the actual retention time of the MS/MS scan and the time at which the precursor ion reach...</td></tr>
+<tr><td><code>Matches</code></td><td class="col-meaning">Semicolon-delimited list of peptide fragment ions (e.g., b-ions, y-ions, a-ions) and neutral losses (H2O, NH3) identi...</td></tr>
+<tr><td><code>Intensities</code></td><td class="col-meaning">A semicolon-separated list of the raw signal intensities for the individual fragment ions (such as b and y ions) that...</td></tr>
+<tr><td><code>Mass Deviations [Da]</code></td><td class="col-meaning">The difference between the observed mass-to-charge ratio and the theoretical mass of identified peptide/fragment ions...</td></tr>
+<tr><td><code>Mass Deviations [ppm]</code></td><td class="col-meaning">The mass measurement error (accuracy) representing the difference between observed and theoretical mass-to-charge rat...</td></tr>
+<tr><td><code>Masses</code></td><td class="col-meaning">Semicolon-separated list of the observed mass-to-charge (m/z) ratios for the fragment ion peaks in a tandem mass spec...</td></tr>
+<tr><td><code>Number of Matches</code></td><td class="col-meaning">The count of fragment ion peaks (typically b-ions and y-ions) in the experimental tandem mass spectrometry (MS/MS) sp...</td></tr>
+<tr><td><code>Intensity coverage</code></td><td class="col-meaning">The fraction of the total fragment ion intensity in an MS/MS spectrum that is accounted for by the matched peaks (e.g...</td></tr>
+<tr><td><code>Peak coverage</code></td><td class="col-meaning">The fraction of theoretical fragment ions (e.g., b-ions and y-ions for the identified peptide sequence) that are matc...</td></tr>
+<tr><td><code>Neutral loss level</code></td><td class="col-meaning">A categorical indicator representing the hierarchical level (e.g., MS2, MS3) or specific classification of neutral lo...</td></tr>
+<tr><td><code>ETD identification type</code></td><td class="col-meaning">The categorical method used to identify the peptide sequence for spectra fragmented using Electron-Transfer Dissociat...</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Indicates if the peptide-spectrum match (PSM) was identified from a decoy (reversed amino acid sequence) database, wh...</td></tr>
+<tr><td><code>All scores</code></td><td class="col-meaning">Semicolon-delimited list of search engine scores (e.g., Andromeda score) for all peptide sequence candidates matching...</td></tr>
+<tr><td><code>All sequences</code></td><td class="col-meaning">Semicolon-separated list of candidate amino acid sequences (peptides) identified by the search engine (e.g., Andromed...</td></tr>
+<tr><td><code>All modified sequences</code></td><td class="col-meaning">Semicolon-delimited list of all candidate peptide sequences, including post-translational modifications (e.g., '(ox)'...</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">Internal primary key for the MS/MS (tandem mass spectrometry) identification table; a unique integer assigned to each...</td></tr>
+<tr><td><code>Protein group IDs</code></td><td class="col-meaning">Identifier linking the MS/MS spectrum to one or more protein groups identified in the experiment (typically referenci...</td></tr>
+<tr><td><code>Peptide ID</code></td><td class="col-meaning">A unique numeric identifier assigned to a specific peptide sequence, serving as a foreign key to link MS/MS spectra t...</td></tr>
+<tr><td><code>Mod. peptide ID</code></td><td class="col-meaning">A unique numeric identifier serving as a foreign key linking an MS/MS scan record to the corresponding entry in the '...</td></tr>
+<tr><td><code>Evidence ID</code></td><td class="col-meaning">A unique numeric identifier linking the MS/MS spectrum to a specific entry in the 'evidence' table (typically evidenc...</td></tr>
+<tr><td><code>Oxidation (M) site IDs</code></td><td class="col-meaning">Sequence positions (residue indices) of Methionine (M) amino acids that have been identified as oxidized within the a...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>OXIDATION_MSITES <span class="tag">81 columns</span> <span class="tag">proteomics</span></h3>
+<p>This table identifies and quantifies the occurrence of Methionine oxidation (a common oxidative stress marker) at specific amino acid positions within proteins.</p>
+<p><strong>Grain:</strong> One row per identified methionine oxidation site (Modification Site). The table is wide, containing metadata, site-level localization scores, and sample-level quantification (Intensity/Ratio).</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Proteins</code></td><td class="col-meaning">UniProt accession numbers of the proteins containing the specific methionine oxidation site. In cases where the ident...</td></tr>
+<tr><td><code>Positions within proteins</code></td><td class="col-meaning">The 1-based numerical index (coordinate) of the oxidized methionine residue(s) within the full-length amino acid sequ...</td></tr>
+<tr><td><code>Leading proteins</code></td><td class="col-meaning">The primary UniProt accession number(s) for the protein(s) associated with a specific methionine oxidation site. In M...</td></tr>
+<tr><td><code>Protein</code></td><td class="col-meaning">The primary UniProt accession number identifying the specific protein (or common contaminant, prefixed with 'CON__') ...</td></tr>
+<tr><td><code>Protein names</code></td><td class="col-meaning">The human-readable descriptive names of the proteins associated with the identified methionine oxidation sites. In ca...</td></tr>
+<tr><td><code>Gene names</code></td><td class="col-meaning">Official gene symbols (e.g., Anapc1, Tubb5) for the proteins containing the identified methionine oxidation site. In ...</td></tr>
+<tr><td><code>Fasta headers</code></td><td class="col-meaning">The full FASTA database header strings for the proteins associated with the specific methionine oxidation site. These...</td></tr>
+<tr><td><code>Score diff</code></td><td class="col-meaning">The maximum Andromeda score difference (delta score) observed for this specific Methionine oxidation site across all ...</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The global identification score for the methionine oxidation site, representing the maximum Andromeda search engine s...</td></tr>
+<tr><td><code>Localization prob 1195_MC38_24-14-8_1</code> ... <code>Score 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>15 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Diagnostic peak</code></td><td class="col-meaning">An indicator (typically '+' or null) from proteomics software (e.g., MaxQuant) specifying whether a diagnostic fragme...</td></tr>
+<tr><td><code>Number of Oxidation (M)</code></td><td class="col-meaning">The 'multiplicity' of the methionine oxidation modification, indicating the total number of oxidation occurrences fou...</td></tr>
+<tr><td><code>Amino acid</code></td><td class="col-meaning">The specific amino acid being tracked for modification, in this case, Methionine (M).</td></tr>
+<tr><td><code>Sequence window</code></td><td class="col-meaning">A fixed-length amino acid sequence (31 residues) centered on the identified Methionine (M) oxidation site, consisting...</td></tr>
+<tr><td><code>Modification window</code></td><td class="col-meaning">A schematic sequence representation of the 31 amino acids surrounding a specific Methionine oxidation site (15 residu...</td></tr>
+<tr><td><code>Peptide window coverage</code></td><td class="col-meaning">A 31-character schematic string representation indicating the sequence coverage of the identified peptide(s) surround...</td></tr>
+<tr><td><code>Oxidation (M) Probabilities</code></td><td class="col-meaning">The peptide sequence representing the identified methionine oxidation site, where the localization probability for th...</td></tr>
+<tr><td><code>Oxidation (M) Score diffs</code></td><td class="col-meaning">A formatted string representing the peptide sequence(s) associated with a specific methionine (M) oxidation site. The...</td></tr>
+<tr><td><code>Identification type 1195_MC38_24-14-8_1</code> ... <code>Identification type 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>6 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Intensity</code></td><td class="col-meaning">The total summed mass spectrometry signal intensity (abundance) for a specific methionine oxidation site across all e...</td></tr>
+<tr><td><code>Intensity___1</code></td><td class="col-meaning">The total summed mass spectrometry signal intensity (abundance) for a specific methionine oxidation site across all e...</td></tr>
+<tr><td><code>Intensity___2</code></td><td class="col-meaning">The summed mass spectrometry signal intensity (abundance) for a specific methionine oxidation site across all experim...</td></tr>
+<tr><td><code>Intensity___3</code></td><td class="col-meaning">The total summed mass spectrometry signal intensity (abundance) for a specific methionine oxidation site across all e...</td></tr>
+<tr><td><code>Ratio mod/base</code></td><td class="col-meaning">The global stoichiometric ratio of the oxidized (modified) peptide intensity to the non-oxidized (base/unmodified) pe...</td></tr>
+<tr><td><code>Intensity 1195_MC38_24-14-8_1</code> ... <code>Intensity 1200_MC38_Y3_3___3</code></td><td class="col-meaning"><em>24 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Flag indicating if the peptide is a 'reverse' decoy sequence used for False Discovery Rate (FDR) calculation.</td></tr>
+<tr><td><code>Potential contaminant</code></td><td class="col-meaning">Flag indicating if the protein is a common contaminant (e.g., keratin, trypsin).</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">A zero-based unique integer identifier assigned by the MaxQuant proteomics software to each entry in the oxidation si...</td></tr>
+<tr><td><code>Positions</code></td><td class="col-meaning">The 1-based numerical index (position) of the oxidized methionine residue within the primary amino acid sequence of t...</td></tr>
+<tr><td><code>Position</code></td><td class="col-meaning">The 1-based amino acid position (residue number) of the specific Methionine (M) oxidation site within the primary seq...</td></tr>
+<tr><td><code>Peptide IDs</code></td><td class="col-meaning">Semicolon-separated list of internal integer identifiers (foreign keys) linking the identified methionine oxidation s...</td></tr>
+<tr><td><code>Mod. peptide IDs</code></td><td class="col-meaning">A semicolon-separated list of internal numeric identifiers (foreign keys) that link the specific methionine oxidation...</td></tr>
+<tr><td><code>Evidence IDs</code></td><td class="col-meaning">Semicolon-separated list of integer identifiers referencing specific records in the 'evidence' table (peptide-spectru...</td></tr>
+<tr><td><code>MS/MS IDs</code></td><td class="col-meaning">Semicolon-delimited list of internal integer identifiers referencing specific records in the 'msms' table (Tandem Mas...</td></tr>
+<tr><td><code>Best localization evidence ID</code></td><td class="col-meaning">The unique identifier (foreign key) referencing the specific record in the 'evidence' table (evidence.txt) that provi...</td></tr>
+<tr><td><code>Best localization raw file</code></td><td class="col-meaning">The name of the mass spectrometry raw data file (MS run) that provided the highest confidence or localization probabi...</td></tr>
+<tr><td><code>Best score raw file</code></td><td class="col-meaning">The name of the mass spectrometry raw data file (LC-MS/MS run) that contains the highest-scoring tandem mass spectrom...</td></tr>
+<tr><td><code>Best PEP MS/MS ID</code></td><td class="col-meaning">The unique internal identifier of the tandem mass spectrometry (MS/MS) spectrum that yielded the best (lowest) Poster...</td></tr>
+<tr><td><code>Best PEP raw file</code></td><td class="col-meaning">The name of the mass spectrometry raw data file (e.g., 'Seq61198_QE3') that yielded the lowest (best) Posterior Error...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>PEPTIDES <span class="tag">74 columns</span> <span class="tag">proteomics</span></h3>
+<p>This table tracks the identification, biological origin (genes/proteins), and quantitative abundance (intensity) of specific peptide sequences discovered in a proteomics experiment.</p>
+<p><strong>Grain:</strong> One row per unique peptide sequence. The table includes both physical/compositional properties of the peptide and quantitative intensity measurements across six specific experimental samples.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Sequence</code></td><td class="col-meaning">The primary amino acid sequence of the identified peptide, represented using standard IUPAC single-letter biochemical...</td></tr>
+<tr><td><code>N-term cleavage window</code></td><td class="col-meaning">A 30-amino acid sequence window extracted from the parent protein, centered on the N-terminal cleavage site of the pe...</td></tr>
+<tr><td><code>C-term cleavage window</code></td><td class="col-meaning">In mass spectrometry proteomics (MaxQuant output), a 30-amino acid sequence representing the protein context surround...</td></tr>
+<tr><td><code>Amino acid before</code></td><td class="col-meaning">In mass spectrometry proteomics (MaxQuant output), the single-letter IUPAC code (e.g., 'K' for Lysine, 'R' for Argini...</td></tr>
+<tr><td><code>First amino acid</code></td><td class="col-meaning">The N-terminal (first) amino acid residue of a peptide sequence, represented by its IUPAC single-letter code (e.g., A...</td></tr>
+<tr><td><code>Second amino acid</code></td><td class="col-meaning">The identity of the amino acid at the second position of the peptide sequence, represented by its one-letter IUPAC co...</td></tr>
+<tr><td><code>Second last amino acid</code></td><td class="col-meaning">The identity of the amino acid at the penultimate position (one before the C-terminus) of the peptide sequence, repre...</td></tr>
+<tr><td><code>Last amino acid</code></td><td class="col-meaning">The single-letter IUPAC code (e.g., L for Leucine, M for Methionine) representing the C-terminal amino acid residue o...</td></tr>
+<tr><td><code>Amino acid after</code></td><td class="col-meaning">In mass spectrometry proteomics (MaxQuant output), the single-letter IUPAC code (e.g., 'R' for Arginine, 'K' for Lysi...</td></tr>
+<tr><td><code>A Count</code></td><td class="col-meaning">The number of Alanine (A) amino acid residues present in the specific peptide sequence. This is part of the amino aci...</td></tr>
+<tr><td><code>R Count</code></td><td class="col-meaning">The total number of Arginine (R) amino acid residues present in the identified peptide sequence. This column is part ...</td></tr>
+<tr><td><code>N Count</code></td><td class="col-meaning">The total number of Asparagine (N) amino acid residues present in the identified peptide sequence. This column is par...</td></tr>
+<tr><td><code>D Count</code></td><td class="col-meaning">The number of Aspartic acid (D) amino acid residues present in the specific peptide sequence. This column is part of ...</td></tr>
+<tr><td><code>C Count</code></td><td class="col-meaning">The total number of Cysteine (C) amino acid residues present in the identified peptide sequence. This column is part ...</td></tr>
+<tr><td><code>Q Count</code></td><td class="col-meaning">The number of Glutamine (Q) amino acid residues present in the specific peptide sequence.</td></tr>
+<tr><td><code>E Count</code></td><td class="col-meaning">The number of Glutamic acid (E) amino acid residues present in the specific peptide sequence. This is part of the ami...</td></tr>
+<tr><td><code>G Count</code></td><td class="col-meaning">The number of Glycine (G) amino acid residues present in the specific peptide sequence. This column is part of the am...</td></tr>
+<tr><td><code>H Count</code></td><td class="col-meaning">The number of Histidine (H) amino acid residues present in the specific peptide sequence. This column is part of the ...</td></tr>
+<tr><td><code>I Count</code></td><td class="col-meaning">The total number of Isoleucine (I) amino acid residues present in the identified peptide sequence. This column is par...</td></tr>
+<tr><td><code>L Count</code></td><td class="col-meaning">The number of Leucine (L) amino acid residues present in the specific peptide sequence. This column is part of the am...</td></tr>
+<tr><td><code>K Count</code></td><td class="col-meaning">The number of Lysine (K) amino acid residues present in the specific peptide sequence.</td></tr>
+<tr><td><code>M Count</code></td><td class="col-meaning">The number of Methionine (M) amino acid residues present in the specific peptide sequence. This is part of the amino ...</td></tr>
+<tr><td><code>F Count</code></td><td class="col-meaning">The total number of Phenylalanine (F) amino acid residues present in the identified peptide sequence. This column is ...</td></tr>
+<tr><td><code>P Count</code></td><td class="col-meaning">The total number of Proline (P) amino acid residues present in the identified peptide sequence. This column is part o...</td></tr>
+<tr><td><code>S Count</code></td><td class="col-meaning">The number of Serine (S) amino acid residues present in the specific peptide sequence. This is part of the amino acid...</td></tr>
+<tr><td><code>T Count</code></td><td class="col-meaning">The number of Threonine (T) amino acid residues present within the specific peptide sequence. This column is part of ...</td></tr>
+<tr><td><code>W Count</code></td><td class="col-meaning">The number of Tryptophan (W) amino acid residues present in the specific peptide sequence. This column is part of the...</td></tr>
+<tr><td><code>Y Count</code></td><td class="col-meaning">The number of Tyrosine (Y) amino acid residues present in the specific peptide sequence.</td></tr>
+<tr><td><code>V Count</code></td><td class="col-meaning">The number of Valine (V) amino acid residues present in the specific peptide sequence. This is part of the amino acid...</td></tr>
+<tr><td><code>U Count</code></td><td class="col-meaning">The number of Selenocysteine (U) residues present in the identified peptide sequence. This column is part of the amin...</td></tr>
+<tr><td><code>O Count</code></td><td class="col-meaning">The total number of Pyrrolysine (O) residues present in the identified peptide sequence. This column is part of the a...</td></tr>
+<tr><td><code>Length</code></td><td class="col-meaning">The total number of amino acid residues (sequence length) in the identified peptide sequence. In mass spectrometry pr...</td></tr>
+<tr><td><code>Missed cleavages</code></td><td class="col-meaning">The number of internal enzymatic cleavage sites (e.g., Lysine or Arginine residues for Trypsin) within a peptide sequ...</td></tr>
+<tr><td><code>Mass</code></td><td class="col-meaning">The monoisotopic mass of the identified peptide.</td></tr>
+<tr><td><code>Proteins</code></td><td class="col-meaning">UniProt accession numbers or database identifiers for the parent protein(s) that contain the identified peptide seque...</td></tr>
+<tr><td><code>Leading razor protein</code></td><td class="col-meaning">The primary UniProt protein accession number assigned to this peptide sequence using the 'razor' parsimony logic, whi...</td></tr>
+<tr><td><code>Start position</code></td><td class="col-meaning">The 1-based sequence coordinate (index) of the first amino acid (N-terminal residue) of the identified peptide sequen...</td></tr>
+<tr><td><code>End position</code></td><td class="col-meaning">The 1-based sequence coordinate (index) of the last amino acid (C-terminal residue) of the identified peptide sequenc...</td></tr>
+<tr><td><code>Gene names</code></td><td class="col-meaning">Foreign key referencing PROTEINGROUPS.Gene names</td></tr>
+<tr><td><code>Protein names</code></td><td class="col-meaning">Foreign key referencing PROTEINGROUPS.Protein names</td></tr>
+<tr><td><code>Unique (Groups)</code></td><td class="col-meaning">Indicates whether the peptide sequence is uniquely associated with a single protein group rather than being shared ac...</td></tr>
+<tr><td><code>Unique (Proteins)</code></td><td class="col-meaning">Indicates whether the peptide sequence maps uniquely to a single protein entry (proteotypic peptide) (yes/no)</td></tr>
+<tr><td><code>Charges</code></td><td class="col-meaning">The ionization charge states (z) observed for the peptide sequence during mass spectrometry analysis. The values are ...</td></tr>
+<tr><td><code>PEP</code></td><td class="col-meaning">Posterior Error Probability (PEP), representing the probability that the peptide identification is a false positive.</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The identification score (e.g., Andromeda score) assigned to the peptide-spectrum match.</td></tr>
+<tr><td><code>Identification type 1195_MC38_24-14-8_1</code> ... <code>Experiment 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>12 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Intensity</code></td><td class="col-meaning">The quantified signal strength (abundance) of a peptide detected in a mass spectrometry experiment, typically represe...</td></tr>
+<tr><td><code>Intensity 1195_MC38_24-14-8_1</code> ... <code>Intensity 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>6 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Flag indicating if the peptide was identified in the decoy (reverse) database.</td></tr>
+<tr><td><code>Potential contaminant</code></td><td class="col-meaning">Flag indicating if the peptide is a known laboratory or common contaminant (e.g., keratin, trypsin).</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">A unique internal primary key (surrogate key) for the peptides table, generated by proteomics software (e.g., MaxQuan...</td></tr>
+<tr><td><code>Protein group IDs</code></td><td class="col-meaning">Internal numeric identifiers (often semicolon-separated) linking the peptide record to its parent protein group(s) in...</td></tr>
+<tr><td><code>Mod. peptide IDs</code></td><td class="col-meaning">A semicolon-separated list of internal numeric identifiers (foreign keys) linking the base peptide sequence to its sp...</td></tr>
+<tr><td><code>Evidence IDs</code></td><td class="col-meaning">A semicolon-separated list of internal numeric identifiers (foreign keys) referencing the 'id' column in the EVIDENCE...</td></tr>
+<tr><td><code>MS/MS IDs</code></td><td class="col-meaning">A semicolon-separated list of internal unique identifiers (foreign keys) referencing the 'id' column in the MSMS (msm...</td></tr>
+<tr><td><code>Best MS/MS</code></td><td class="col-meaning">Internal reference identifier (foreign key) for the highest-scoring tandem mass spectrometry (MS/MS) spectrum associa...</td></tr>
+<tr><td><code>Oxidation (M) site IDs</code></td><td class="col-meaning">Semicolon-separated list of numeric identifiers linking the peptide to specific records in the 'Oxidation (M) Sites' ...</td></tr>
+<tr><td><code>MS/MS Count</code></td><td class="col-meaning">The number of MS/MS spectra (fragmentation events) that were successfully assigned to the specific peptide sequence. ...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>PROTEINGROUPS <span class="tag">82 columns</span> <span class="tag">proteomics</span></h3>
+<p>Summarizes protein-level identification, statistical confidence (Q-values), and quantification (LFQ Intensity) across mass spectrometry experimental runs.</p>
+<p><strong>Grain:</strong> One row per Protein Group (a cluster of proteins that cannot be distinguished by the detected peptides). The table is wide-format, containing temporal/sample dimensions across 82 columns.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Protein IDs</code></td><td class="col-meaning">UniProt accession numbers or database identifiers for all proteins contained within a specific protein group identifi...</td></tr>
+<tr><td><code>Majority protein IDs</code></td><td class="col-meaning">UniProt accessions for proteins within a group that have at least half of the peptides of the leading protein (MaxQua...</td></tr>
+<tr><td><code>Peptide counts (all)</code></td><td class="col-meaning">Total number of peptides identified and associated with a protein group, including unique, razor, and shared peptides.</td></tr>
+<tr><td><code>Peptide counts (razor+unique)</code></td><td class="col-meaning">The total number of peptides used for protein identification and quantification, including both unique peptides (excl...</td></tr>
+<tr><td><code>Peptide counts (unique)</code></td><td class="col-meaning">A semicolon-separated list of the number of unique peptides identified for each individual protein entry listed in th...</td></tr>
+<tr><td><code>Protein names</code></td><td class="col-meaning">Foreign key referencing PEPTIDES.Protein names</td></tr>
+<tr><td><code>Gene names</code></td><td class="col-meaning">Foreign key referencing PEPTIDES.Gene names</td></tr>
+<tr><td><code>Fasta headers</code></td><td class="col-meaning">Semicolon-separated FASTA header strings from the reference database (e.g., UniProt). Typically includes database sou...</td></tr>
+<tr><td><code>Number of proteins</code></td><td class="col-meaning">The total number of individual protein accessions (sequences) contained within a specific protein group. In MaxQuant ...</td></tr>
+<tr><td><code>Peptides</code></td><td class="col-meaning">The total number of distinct peptide sequences identified and associated with this protein group across all experimen...</td></tr>
+<tr><td><code>Razor + unique peptides</code> ... <code>Razor + unique peptides</code></td><td class="col-meaning"><em>1 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Unique peptides</code></td><td class="col-meaning">The total number of unique peptides (peptides that map exclusively to this specific protein group) identified across ...</td></tr>
+<tr><td><code>Peptides 1195_MC38_24-14-8_1</code> ... <code>Unique peptides 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>18 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Sequence coverage [%]</code></td><td class="col-meaning">The percentage of the protein's amino acid sequence covered by the peptides identified in the mass spectrometry exper...</td></tr>
+<tr><td><code>Unique + razor sequence coverage [%]</code></td><td class="col-meaning">Percentage of the protein sequence covered by amino acids found in identified 'unique' and 'razor' peptides. 'Razor' ...</td></tr>
+<tr><td><code>Unique sequence coverage [%]</code></td><td class="col-meaning">The percentage of the protein's amino acid sequence that is covered by identified peptides which are unique to that s...</td></tr>
+<tr><td><code>Mol. weight [kDa]</code></td><td class="col-meaning">The calculated molecular mass of the protein group or representative protein, expressed in kilodaltons (kDa).</td></tr>
+<tr><td><code>Sequence length</code></td><td class="col-meaning">The length of the protein sequence (number of amino acid residues) for the protein or majority protein in the group.</td></tr>
+<tr><td><code>Sequence lengths</code></td><td class="col-meaning">The number of amino acids in the primary protein sequences associated with the protein group.</td></tr>
+<tr><td><code>Q-value</code></td><td class="col-meaning">The False Discovery Rate (FDR) adjusted p-value for the protein group identification, indicating the probability of t...</td></tr>
+<tr><td><code>Score</code></td><td class="col-meaning">The Andromeda score for a protein group, representing the confidence of identification based on MS/MS spectra matchin...</td></tr>
+<tr><td><code>Identification type 1195_MC38_24-14-8_1</code> ... <code>Sequence coverage 1200_MC38_Y3_3 [%]</code></td><td class="col-meaning"><em>12 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>Intensity</code></td><td class="col-meaning">Total summed signal intensity for a protein group, representing the relative abundance of the protein(s) detected via...</td></tr>
+<tr><td><code>Intensity 1195_MC38_24-14-8_1</code> ... <code>MS/MS count 1200_MC38_Y3_3</code></td><td class="col-meaning"><em>18 sample/replicate columns</em> &mdash; per-sample measurements across experimental conditions</td></tr>
+<tr><td><code>MS/MS count</code></td><td class="col-meaning">The total number of tandem mass spectrometry (MS/MS) spectra (scans) that were successfully matched to peptides belon...</td></tr>
+<tr><td><code>Only identified by site</code></td><td class="col-meaning">A binary flag indicating whether a protein group was identified exclusively by a specific modified site (e.g., an oxi...</td></tr>
+<tr><td><code>Reverse</code></td><td class="col-meaning">Indicates whether the protein group was identified from a 'decoy' (reversed) database, used in proteomics to estimate...</td></tr>
+<tr><td><code>Potential contaminant</code></td><td class="col-meaning">Flag indicating whether the protein group is a known common laboratory contaminant (e.g., human keratins, trypsin, or...</td></tr>
+<tr><td><code>id</code></td><td class="col-meaning">Unique internal integer identifier for each protein group record in the MaxQuant output table. It serves as the prima...</td></tr>
+<tr><td><code>Peptide IDs</code></td><td class="col-meaning">Semicolon-delimited list of internal database identifiers for all peptides assigned to a specific protein group, typi...</td></tr>
+<tr><td><code>Peptide is razor</code></td><td class="col-meaning">Semicolon-separated list of boolean indicators (True/False) for each peptide in the protein group, indicating whether...</td></tr>
+<tr><td><code>Mod. peptide IDs</code></td><td class="col-meaning">Semicolon-separated list of internal database identifiers for the modified peptides associated with the identified pr...</td></tr>
+<tr><td><code>Evidence IDs</code></td><td class="col-meaning">Semicolon-delimited list of foreign keys pointing to the 'evidence' table; represents the specific peptide-spectrum m...</td></tr>
+<tr><td><code>MS/MS IDs</code></td><td class="col-meaning">Semicolon-separated list of internal scan identifiers or record indices for the tandem mass spectrometry (MS/MS) spec...</td></tr>
+<tr><td><code>Best MS/MS</code></td><td class="col-meaning">Internal reference identifier for the highest-scoring tandem mass spectrometry (MS/MS) spectrum or spectra associated...</td></tr>
+<tr><td><code>Oxidation (M) site IDs</code></td><td class="col-meaning">Internal identifiers mapping the protein group to specific methionine oxidation [Oxidation (M)] modification sites, t...</td></tr>
+<tr><td><code>Oxidation (M) site positions</code></td><td class="col-meaning">The 1-based amino acid sequence positions of oxidized methionine (M) residues within the proteins of the identified p...</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>SUMMARY <span class="tag">51 columns</span> <span class="tag">proteomics_lab</span></h3>
+<p>This table serves as a technical quality control and summary report for mass spectrometry proteomics experiments, tracking identification rates, mass accuracy, and instrument performance across multiple raw data files.</p>
+<p><strong>Grain:</strong> One row per mass spectrometry raw data file (Raw file). It provides a flat summary of search parameters and result statistics for each run.</p>
+<table>
+<tr><th>Column</th><th>Meaning</th></tr>
+<tr><td><code>Raw file</code></td><td class="col-meaning">Unique identifier for the original mass spectrometry raw data file (e.g., .raw, .mzML) processed in the proteomics ex...</td></tr>
+<tr><td><code>Experiment</code></td><td class="col-meaning">The user-defined identifier or label for a proteomics experimental group or biological replicate. In a MaxQuant summa...</td></tr>
+<tr><td><code>Enzyme</code></td><td class="col-meaning">The proteolytic enzyme (protease) used to digest proteins into peptides for mass spectrometry analysis (e.g., Trypsin...</td></tr>
+<tr><td><code>Enzyme mode</code></td><td class="col-meaning">The specificity constraint applied to the enzymatic digestion during the peptide identification/search process (e.g.,...</td></tr>
+<tr><td><code>Enzyme first search</code></td><td class="col-meaning">The specific protease (e.g., Trypsin, LysC, Chymotrypsin) configured for use during the initial mass recalibration se...</td></tr>
+<tr><td><code>Enzyme mode first search</code></td><td class="col-meaning">The proteolytic enzyme digestion specificity (e.g., 'Specific', 'Semi-specific', 'Unspecific') applied during the pre...</td></tr>
+<tr><td><code>Use enzyme first search</code></td><td class="col-meaning">A boolean configuration flag indicating whether proteolytic enzyme constraints (e.g., Trypsin) were applied during th...</td></tr>
+<tr><td><code>Variable modifications</code></td><td class="col-meaning">List of variable post-translational modifications (PTMs) configured in a mass spectrometry search engine (e.g., MaxQu...</td></tr>
+<tr><td><code>Multi modifications</code></td><td class="col-meaning">A configuration setting in the MaxQuant search engine indicating whether a specific 'multi-modification' search mode ...</td></tr>
+<tr><td><code>Variable modifications first search</code></td><td class="col-meaning">List of variable amino acid modifications (e.g., Oxidation (M), Acetyl (Protein N-term)) configured for the initial m...</td></tr>
+<tr><td><code>Use variable modifications first search</code></td><td class="col-meaning">A boolean flag indicating whether variable post-translational modifications (PTMs) were included in the initial (firs...</td></tr>
+<tr><td><code>Requantify</code></td><td class="col-meaning">Boolean configuration flag in the MaxQuant proteomics software indicating whether the 'Requantify' feature was enable...</td></tr>
+<tr><td><code>Multiplicity</code></td><td class="col-meaning">The number of isotopic labeling states (channels) used for quantification in a mass spectrometry experiment (e.g., 1 ...</td></tr>
+<tr><td><code>Max. missed cleavages</code></td><td class="col-meaning">A configuration setting in the MaxQuant proteomics search engine that defines the maximum number of internal enzymati...</td></tr>
+<tr><td><code>Labels0</code></td><td class="col-meaning">The configuration parameter specifying the isotopic labels used for the first labeling channel (typically the 'Light'...</td></tr>
+<tr><td><code>LC-MS run type</code></td><td class="col-meaning">Classification of the LC-MS acquisition or processing mode (e.g., 'Standard' for routine data-dependent acquisition) ...</td></tr>
+<tr><td><code>Time-dependent recalibration</code></td><td class="col-meaning">Mass spectrometry processing setting indicating whether time-dependent mass recalibration was applied to the raw data...</td></tr>
+<tr><td><code>MS</code></td><td class="col-meaning">The total number of MS1 (Mass Spectrometry level 1) scans or spectra recorded in the raw data file. In a MaxQuant sum...</td></tr>
+<tr><td><code>MS/MS</code></td><td class="col-meaning">Total number of MS/MS (tandem mass spectrometry) spectra/scans acquired for the experimental run.</td></tr>
+<tr><td><code>MS3</code></td><td class="col-meaning">The total number of MS3 (Level 3) mass spectrometry scans or spectra recorded in the raw data file. Similar to MS (MS...</td></tr>
+<tr><td><code>MS/MS Submitted</code></td><td class="col-meaning">The total count of MS/MS (tandem mass spectrometry) spectra or scans that were submitted for database searching and i...</td></tr>
+<tr><td><code>MS/MS Submitted (SIL)</code></td><td class="col-meaning">The total number of tandem mass spectrometry (MS/MS) spectra or precursor ions originating from stable isotope labele...</td></tr>
+<tr><td><code>MS/MS Submitted (ISO)</code></td><td class="col-meaning">The total number of tandem mass spectrometry (MS/MS) spectra submitted to the search engine (e.g., MaxQuant) that wer...</td></tr>
+<tr><td><code>MS/MS Submitted (PEAK)</code></td><td class="col-meaning">Total count of tandem mass spectrometry (MS/MS) fragmentation spectra submitted to a search engine (e.g., MaxQuant) f...</td></tr>
+<tr><td><code>MS/MS Identified</code></td><td class="col-meaning">The total count of tandem mass spectrometry (MS/MS) spectra that were successfully identified and matched to peptide ...</td></tr>
+<tr><td><code>MS/MS Identified (SIL)</code></td><td class="col-meaning">The total number of tandem mass spectrometry (MS/MS) spectra or features successfully identified and assigned to pept...</td></tr>
+<tr><td><code>MS/MS Identified (ISO)</code></td><td class="col-meaning">The total count of MS/MS (tandem mass spectrometry) spectra that were successfully identified and matched to peptide ...</td></tr>
+<tr><td><code>MS/MS Identified (PEAK)</code></td><td class="col-meaning">The count of tandem mass spectrometry (MS/MS) spectra that were successfully identified and matched to peptide sequen...</td></tr>
+<tr><td><code>MS/MS Identified [%]</code></td><td class="col-meaning">The percentage of acquired tandem mass spectrometry (MS/MS) spectra that were successfully matched to peptide sequenc...</td></tr>
+<tr><td><code>MS/MS Identified (SIL) [%]</code></td><td class="col-meaning">A technical quality control metric in MaxQuant indicating the efficiency of peptide identification for stable isotope...</td></tr>
+<tr><td><code>MS/MS Identified (ISO) [%]</code></td><td class="col-meaning">Percentage of tandem mass spectrometry (MS/MS) spectra that were successfully identified and matched to peptide seque...</td></tr>
+<tr><td><code>MS/MS Identified (PEAK) [%]</code></td><td class="col-meaning">The proportion of tandem mass spectrometry (MS/MS) spectra that were successfully assigned to a peptide sequence, cal...</td></tr>
+<tr><td><code>Peptide Sequences Identified</code></td><td class="col-meaning">The total number of unique peptide sequences successfully identified and matched from mass spectrometry data for a gi...</td></tr>
+<tr><td><code>Peaks</code></td><td class="col-meaning">The total number of individual mass spectrometry peaks (centroided signals) detected across all MS1 scans in a specif...</td></tr>
+<tr><td><code>Peaks Sequenced</code></td><td class="col-meaning">The total count of mass spectrometry peaks (MS/MS spectra) selected for fragmentation and sequencing during a proteom...</td></tr>
+<tr><td><code>Peaks Sequenced [%]</code></td><td class="col-meaning">The percentage of detected precursor ion features (isotope patterns or 3D peaks) in a mass spectrometry run that were...</td></tr>
+<tr><td><code>Peaks Repeatedly Sequenced</code></td><td class="col-meaning">The total number of precursor ion peaks (isotopic clusters) that were selected for fragmentation (MS/MS) more than on...</td></tr>
+<tr><td><code>Peaks Repeatedly Sequenced [%]</code></td><td class="col-meaning">The percentage of precursor ion peaks in a mass spectrometry run that were selected for fragmentation (MS2) more than...</td></tr>
+<tr><td><code>Isotope Patterns</code></td><td class="col-meaning">The total number of isotopic clusters (isotope patterns) detected during a mass spectrometry run. This is a standard ...</td></tr>
+<tr><td><code>Isotope Patterns Sequenced</code></td><td class="col-meaning">Total count of peptide isotope patterns (clusters of isotopic peaks) that were selected and targeted for MS/MS fragme...</td></tr>
+<tr><td><code>Isotope Patterns Sequenced (z&gt;1)</code></td><td class="col-meaning">The count of multi-charged (z &gt; 1) isotope patterns detected in a mass spectrometry run that were subsequently target...</td></tr>
+<tr><td><code>Isotope Patterns Sequenced [%]</code></td><td class="col-meaning">The percentage of detected peptide isotope clusters (precursor ions) that were selected and fragmented for MS/MS sequ...</td></tr>
+<tr><td><code>Isotope Patterns Sequenced (z&gt;1) [%]</code></td><td class="col-meaning">The percentage of detected peptide isotope patterns with a charge state greater than 1 (multiply charged) that were s...</td></tr>
+<tr><td><code>Isotope Patterns Repeatedly Sequenced</code></td><td class="col-meaning">The total count of isotopic clusters (patterns) that were selected for MS/MS fragmentation and sequencing more than o...</td></tr>
+<tr><td><code>Isotope Patterns Repeatedly Sequenced [%]</code></td><td class="col-meaning">The percentage of detected precursor isotope patterns in a mass spectrometry run that were selected for fragmentation...</td></tr>
+<tr><td><code>Recalibrated</code></td><td class="col-meaning">An indicator flag representing whether the mass spectrometry data for a given entry has undergone mass recalibration ...</td></tr>
+<tr><td><code>Av. Absolute Mass Deviation [ppm]</code></td><td class="col-meaning">The average magnitude of mass measurement error (accuracy) for ions or peptides identified in a mass spectrometry run...</td></tr>
+<tr><td><code>Mass Standard Deviation [ppm]</code></td><td class="col-meaning">The standard deviation of mass measurement errors for identified peptides or proteins, expressed in parts per million...</td></tr>
+<tr><td><code>Av. Absolute Mass Deviation [mDa]</code></td><td class="col-meaning">The average absolute difference between the measured mass of identified ions (peptides) and their theoretical calcula...</td></tr>
+<tr><td><code>Mass Standard Deviation [mDa]</code></td><td class="col-meaning">The standard deviation of mass measurement errors (the difference between observed and theoretical mass) for peptide ...</td></tr>
+<tr><td><code>Label free norm param</code></td><td class="col-meaning">Configuration setting or algorithm choice for normalization within Label-Free Quantification (LFQ) proteomics workflo...</td></tr>
+</table>
+</div>
+</section>
+<section>
+<h2>Review Findings Summary</h2>
+<div class="card"><h3>Findings by Category</h3><table><tr><th>Category</th><th>Count</th></tr>
+<tr><td><code>co_occurrence_plausibility</code></td><td>653</td></tr>
+<tr><td><code>unit_consistency</code></td><td>18</td></tr>
+<tr><td><code>fk_integrity</code></td><td>8</td></tr>
+<tr><td><code>memory_override</code></td><td>5</td></tr>
+<tr><td><code>cluster_validation</code></td><td>3</td></tr>
+<tr><td><code>domain_coherence</code></td><td>1</td></tr>
+<tr><td><code>scale_coherence</code></td><td>1</td></tr>
+</table></div>
+<div class="card"><h3>FAIL Findings</h3>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/Use enzyme first search-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/Use variable modifications first search-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/Requantify-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/Max. missed cleavages-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/MS3-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/MS/MS Submitted (ISO)-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk/MS/MS Identified (ISO)-&gt;OXIDATION_MSITES.Intensity</code></strong></p>
+<p>FK target OXIDATION_MSITES.Intensity is not unique (cardinality_ratio=0.8878). Joining will produce fan-out.</p>
+<p><em>Suggestion:</em> Aggregate the target table before joining, or verify the FK relationship</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MODIFICATIONSPECIFICPEPTIDES.Unique (Groups)~OXIDATION_MSITES.Score diff 1195_MC38_24-14-8_1</code></strong></p>
+<p>The uniqueness of a peptide sequence to a protein group (database mapping) is semantically unrelated to the statistical confidence (score difference) of a specific methionine oxidation site localization.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MODIFICATIONSPECIFICPEPTIDES.Unique (Proteins)~OXIDATION_MSITES.Score diff 1195_MC38_24-14-8_1</code></strong></p>
+<p>Similar to Edge 4, protein-level uniqueness and site-level modification localization confidence are distinct domains (bioinformatics mapping vs. mass spectrometry measurement).</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MODIFICATIONSPECIFICPEPTIDES.Experiment 1197_MC38_24-14-8_3~MSMS.Combinatorics</code></strong></p>
+<p>Same logic as Edge 14. An experimental observation count (abundance) is semantically unrelated to a sequence-based theoretical calculation (combinatorics).</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MODIFICATIONSPECIFICPEPTIDES.Experiment 1198_MC38_Y3_1~PEPTIDES.M Count</code></strong></p>
+<p>The number of methionine residues in a peptide (sequence property) and the number of times it was identified in a specific experiment (abundance/detectability) are not semantically linked.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MODIFICATIONSPECIFICPEPTIDES.Experiment 1198_MC38_Y3_1~PEPTIDES.P Count</code></strong></p>
+<p>The number of proline residues is a sequence property and does not semantically relate to experimental spectral counts.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MSMS.Oxidation (M) site IDs~PEPTIDES.W Count</code></strong></p>
+<p>The sequence index of a modified Methionine and the total count of Tryptophans are independent sequence features. Their association is a result of being joined on the same peptide/protein entity.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>MSMS.Oxidation (M) site IDs~PEPTIDES.Experiment 1196_MC38_24-14-8_2</code></strong></p>
+<p>There is no semantic relationship between the specific sequence position of a Methionine oxidation and the number of times that peptide was identified in a specific experiment (spectral counts).</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Isotope Patterns Sequenced [%]</code></strong></p>
+<p>The SUMMARY table in proteomics software (like MaxQuant) typically contains run-level or experiment-level QC metrics (like % of isotope patterns sequenced). Associating these global run-level statistics with the MS/MS count of a specific protein group via a protein-level join is a statistical confound; the global metric applies to all proteins in that run and does not describe a relationship specific to that protein.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Isotope Patterns Sequenced (z&gt;1) [%]</code></strong></p>
+<p>The SUMMARY table provides global run-level QC metrics. Linking these to a specific protein group's MS/MS count via a protein-level join is a statistical confound, as the run-level metric is independent of the specific protein's identity.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Isotope Patterns Repeatedly Sequenced</code></strong></p>
+<p>The SUMMARY table provides global run-level QC metrics. Linking these to a specific protein group's MS/MS count via a protein-level join is a statistical confound.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Isotope Patterns Repeatedly Sequenced [%]</code></strong></p>
+<p>The SUMMARY table provides global run-level QC metrics. Linking these to a specific protein group's MS/MS count via a protein-level join is a statistical confound.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Av. Absolute Mass Deviation [ppm]</code></strong></p>
+<p>Mass deviation is a global instrument calibration/performance metric found in the SUMMARY table. It applies to all measurements in a run. Associating it with a specific protein's count is a join-path artifact.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Mass Standard Deviation [ppm]</code></strong></p>
+<p>Mass standard deviation is a global instrument performance metric found in the SUMMARY table. Associating it with a specific protein's count via protein ID is a join-path artifact.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Av. Absolute Mass Deviation [mDa]</code></strong></p>
+<p>Mass deviation is a global instrument calibration/performance metric found in the SUMMARY table. Associating it with a specific protein's count is a join-path artifact.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">co_occurrence_plausibility</span> <strong><code>PROTEINGROUPS.MS/MS count 1198_MC38_Y3_1~SUMMARY.Mass Standard Deviation [mDa]</code></strong></p>
+<p>Mass standard deviation is a global instrument performance metric found in the SUMMARY table. Associating it with a specific protein's count is a join-path artifact.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">cluster_validation</span> <strong><code>EVIDENCE/cluster_validation/cluster_7850c672</code></strong></p>
+<p>Both EVIDENCE.'Fraction of total spectrum' and EVIDENCE.'Base peak fraction' consist entirely of degenerate data (all 0 values), rendering any cluster or functional dependency between them uninformative for analysis.</p>
+<p><em>Suggestion:</em> Remove these empty/degenerate columns from analysis or review the pipeline that generated them to see why they are unpopulated.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">cluster_validation</span> <strong><code>MSMS/cluster_validation/cluster_dd32bacf</code></strong></p>
+<p>Both MSMS.'Fraction of total spectrum' and MSMS.'Precursor Apex Fraction' contain identical degenerate values (all 0s). The functional dependency is trivial and uninformative.</p>
+<p><em>Suggestion:</em> Exclude these zero-variance columns from analysis.</p>
+</div>
+<div class="finding finding-critical">
+<p><span class="badge badge-fail">FAIL</span> <span class="badge badge-medium">fk_integrity</span> <strong><code>SUMMARY/fk_integrity/Multiplicity-&gt;OXIDATION_MSITES.id</code></strong></p>
+<p>The 'Multiplicity' column (an integer representing the number of isotopic labels, e.g., 1 for Label-Free Quantification) is mapped as a foreign key to the primary identifier ('id') of the OXIDATION_MSITES table. Joining a static experimental setup parameter to a unique biological entity ID is semantically nonsensical.</p>
+<p><em>Suggestion:</em> Remove the foreign key relationship between Multiplicity and OXIDATION_MSITES.id.</p>
+</div>
+</div>
+</section>
+
+<footer style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--border); color:#8b949e; font-size:0.85rem;">
+<p>Generated by <a href="https://github.com/anthropics/claude-code">Claude Code</a> using <a href="https://github.com/rantene/semantic-enricher">semantic-enricher</a> | Audit date: 2026-03-25</p>
+</footer>
+
+</div>
+</body>
+</html>
